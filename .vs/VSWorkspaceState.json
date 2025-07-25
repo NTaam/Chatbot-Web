@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\FashionShop",
+    "\\FashionShop\\Controllers",
+    "\\FashionShop\\Models",
+    "\\FashionShop\\Models\\EF",
+    "\\FashionShop\\Scripts",
+    "\\FashionShop\\Views",
+    "\\FashionShop\\Views\\Contact",
+    "\\FashionShop\\Views\\Products",
+    "\\FashionShop\\Views\\Shared"
+  ],
+  "SelectedNode": "\\FashionShop\\Controllers\\ContactController.cs",
+  "PreviewInSolutionExplorer": false
+}

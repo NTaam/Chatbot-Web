@@ -1,0 +1,309 @@
+﻿@model FashionShop.Models.EF.Product
+@{
+    ViewBag.Title = "Chi tiết";
+}
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/single_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/single_responsive.css">
+
+<style>
+    .size-options, 
+    .divSizeRemaining {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+    }
+
+        .size-options label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 15px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease-in-out;
+            user-select: none;
+        }
+
+        .size-options input[type="radio"] {
+            display: none;
+        }
+
+            .size-options input[type="radio"]:checked + label {
+                background-color: #007bff;
+                color: white;
+                border-color: #007bff;
+            }
+
+        .size-options label:hover {
+            background-color: #f0f0f0;
+        }
+
+    #sizeRemaining {
+        font-size: 15px;
+    }
+</style>
+
+@if (Model != null)
+{
+    <div class="container single_product_container">
+        <div class="row">
+            <div class="col">
+
+                <!-- Breadcrumbs -->
+
+                <div class="breadcrumbs d-flex flex-row align-items-center">
+                    <ul>
+                        <li><a href="/">Trang chủ</a></li>
+                        <li><a href="/Product-Categories/@Model.ProductCategory.Alias-@Model.ProductCategoryId"><i class="fa fa-angle-right" aria-hidden="true"></i>@Model.ProductCategory.Title</a></li>
+                        <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>@Model.Title</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-7">
+                @if (Model.ProductImage != null && Model.ProductImage.Any())
+                {
+                    <div class="single_product_pics">
+                        <div class="row">
+                            <div class="col-lg-3 thumbnails_col order-lg-1 order-2">
+                                <div class="single_product_thumbnails">
+                                    <ul>
+                                        @foreach (var item in Model.ProductImage)
+                                        {
+                                            if (item.IsDefault)
+                                            {
+                                                <li class="active" style="display: flex; justify-content: center;"><img style="height: 100%; width: auto;" src="@item.Image" alt="" data-image="@item.Image"></li>
+                                            }
+                                            else
+                                            {
+                                                <li style="display: flex; justify-content: center;"><img style="height: 100%; width: auto;" src="@item.Image" alt="" data-image="@item.Image"></li>
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 image_col order-lg-2 order-1">
+                                <div class="single_product_image">
+                                    <div class="single_product_image_background" style="background-image:url(@Model.ProductImage.FirstOrDefault(x => x.IsDefault).Image)"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+            <div class="col-lg-5">
+                <div class="product_details">
+                    <div class="product_details_title">
+                        <h2>@Model.Title</h2>
+                        <p>@Model.Description</p>
+                        <p>Lượt xem: <b>@Model.ViewCount</b></p>
+                        <p>Kho: <b>@Model.Quantity</b></p>
+                        <p>Thương hiệu: <b>@Model.ProductBrand</b></p>
+                        <div class="divSizeRemaining">
+                            <p id="sizeRemaining">XS: <b>@Model.SizeXS</b></p>
+                            <p id="sizeRemaining">S: <b>@Model.SizeS</b></p>
+                            <p id="sizeRemaining">M: <b>@Model.SizeM</b></p>
+                            <p id="sizeRemaining">L: <b>@Model.SizeL</b></p>
+                            <p id="sizeRemaining">XL: <b>@Model.SizeXL</b></p>
+                            <p id="sizeRemaining">XXL: <b>@Model.SizeXXL</b></p>
+                            <p id="sizeRemaining">XXXL: <b>@Model.SizeXXXL</b></p>
+                        </div>
+
+                    </div>
+                    @if (Model.PriceSale > 0)
+                    {
+                        <div class="original_price">@FashionShop.Models.common.Common.FormatNumber(Model.Price, 0)</div>
+                        <div class="product_price">@FashionShop.Models.common.Common.FormatNumber(Model.PriceSale, 0)</div>
+                    }
+                    else
+                    {
+                        <div class="product_price">@FashionShop.Models.common.Common.FormatNumber(Model.Price, 0)</div>
+                    }
+
+                    <ul class="star_rating">
+                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                        <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+                    </ul>
+                    <br />
+                    <br />
+                    <br />
+                    <div class="size-options">
+                        <input type="radio" id="sizeXS" name="selectSize" value="XS" data-max="@Model.SizeXS"/>
+                        <label for="sizeXS">XS</label>
+
+                        <input type="radio" id="sizeS" name="selectSize" value="S" data-max="@Model.SizeS"/>
+                        <label for="sizeS">S</label>
+
+                        <input type="radio" id="sizeM" name="selectSize" value="M" data-max="@Model.SizeM" />
+                        <label for="sizeM">M</label>
+
+                        <input type="radio" id="sizeL" name="selectSize" value="L" data-max="@Model.SizeL"/>
+                        <label for="sizeL">L</label>
+
+                        <input type="radio" id="sizeXL" name="selectSize" value="XL" data-max="@Model.SizeXL"/>
+                        <label for="sizeXL">XL</label>
+
+                        <input type="radio" id="sizeXXL" name="selectSize" value="XXL" data-max="@Model.SizeXXL"/>
+                        <label for="sizeXXL">XXL</label>
+
+                        <input type="radio" id="sizeXXXL" name="selectSize" value="XXXL" data-max="@Model.SizeXXXL"/>
+                        <label for="sizeXXXL">XXXL</label>
+                    </div>
+
+                    <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
+                        <span>Số lượng:</span>
+                        <div class="quantity_selector">
+                            <span class="minus"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                            <span id="quantity_value">0</span>
+                            <span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                        </div>
+                        @if (Model.Quantity == 0)
+                        {
+                            <div class="red_button add_to_cart_button" style="color: white;">Hết hàng</div>
+                        }
+                        else
+                        {
+                            <div class="red_button add_to_cart_button"><a href="#" class="btnAddToCart" data-id="@Model.Id">Thêm vào giỏ hàng</a></div>
+                        }
+
+                        <div class="product_favorite d-flex flex-column align-items-center justify-content-center"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tabs_section_container">
+
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="tabs_container">
+                        <ul class="tabs d-flex flex-sm-row flex-column align-items-left align-items-md-center justify-content-center">
+                            <li class="tab active" data-active-tab="tab_1"><span>Mô tả sản phẩm</span></li>
+                            <li class="tab" data-active-tab="tab_3"><span>Đánh giá (@ViewBag.CountReview)</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+
+                    <!-- Tab Description -->
+
+                    <div id="tab_1" class="tab_container active">
+                        <div class="row">
+                            <div class="col-lg-5 desc_col">
+                                <div class="tab_title">
+                                    <h4>Mô tả</h4>
+                                </div>
+                                @Html.Raw(Model.Detail)
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab Reviews -->
+
+                    <div id="tab_3" class="tab_container">
+                        <div class="row">
+
+                            <!-- User Reviews -->
+
+                            <div class="col-lg-6 reviews_col">
+                                @Html.Action("Load_Review", "Review", new { productId = Model.Id })
+                            </div>
+
+                            <!-- Add Review -->
+
+                            <div class="col-lg-6 add_review_col">
+
+                                @Html.Action("_Review", "Review", new { productId = Model.Id } )
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+}
+
+@section scripts{
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const minusBtn = document.querySelector(".minus");
+            const plusBtn = document.querySelector(".plus");
+            const quantityValue = document.getElementById("quantity_value");
+            let maxValue = 1;
+            const AddtoCartBtn = document.querySelector(".btnAddToCart");
+
+            function updateMaxValue() {
+                const selectedSize = document.querySelector('input[name="selectSize"]:checked');
+                if (selectedSize) {
+                    maxValue = parseInt(selectedSize.getAttribute("data-max"));
+                    quantityValue.textContent = 0;
+                    if (maxValue === 0) {
+                        AddtoCartBtn.textContent = "Đã hết hàng";
+                        AddtoCartBtn.classList.add("disabled");
+                        AddtoCartBtn.style.pointerEvents = "none";
+                    } else {
+                        AddtoCartBtn.textContent = "Thêm vào giỏ hàng";
+                        AddtoCartBtn.classList.remove("disabled");
+                        AddtoCartBtn.style.pointerEvents = "auto";
+                    }
+                }
+            }
+
+            document.querySelectorAll('input[name="selectSize"]').forEach(size => {
+                size.addEventListener("change", updateMaxValue);
+            });
+
+            function updateButtonState() {
+                if (parseInt(quantityValue.textContent) === 0) {
+                    AddtoCartBtn.classList.add("disabled");
+                    AddtoCartBtn.style.pointerEvents = "none";
+                } else {
+                    AddtoCartBtn.classList.remove("disabled");
+                    AddtoCartBtn.style.pointerEvents = "auto";
+                }
+            }
+            
+            plusBtn.addEventListener("click", function () {
+                let currentValue = parseInt(quantityValue.textContent);
+                console.log("Current:", currentValue, "Max:", maxValue);
+                if (currentValue < maxValue) {
+                    quantityValue.textContent = currentValue + 1;
+                    updateButtonState();
+                }
+            });
+
+            minusBtn.addEventListener("click", function () {
+                let currentValue = parseInt(quantityValue.textContent);
+                if (currentValue > 0) {
+                    quantityValue.textContent = currentValue - 1;
+                    updateButtonState();
+                }
+            });
+        });
+
+        updateButtonState();
+    </script>
+
+    <script src="~/Content/assets/js/single_custom.js"></script>
+}

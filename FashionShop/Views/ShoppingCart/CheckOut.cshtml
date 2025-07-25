@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "Thanh toán";
+}
+
+<style>
+    .error {
+        color: red;
+    }
+</style>
+
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_responsive.css">
+<div class="container product_section_container">
+    <div class="row">
+        <div class="col product_section clearfix">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li><a href="/Home">Trang chủ</a></li>
+                    <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Thanh toán</a></li>
+                </ul>
+            </div>
+
+            <!-- Main Content -->
+
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1>Thanh toán</h1>
+                    <p>Vui lòng kiểm tra lại đơn hàng!</p>
+                </div>
+            </div>
+            <hr />
+            @if (ViewBag.CheckCart != null)
+            {
+                <div class="row">
+                    <div id="show_success"></div>
+                    <div class="col-md-9">
+                        @Html.Action("Partial_CheckOut", "Shoppingcart")
+                    </div>
+                    <div class="col-md-3">
+                        @Html.Action("Partial_Item_Payment", "ShoppingCart")
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div>
+                    Không tìm thấy sản phẩm. Hãy <a href="/products">quay lại</a> để mua hàng!
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Content/assets/js/categories_custom.js"></script>
+    <script>
+        function Onfailure(rs) {
+            if (!rs.Success) {
+                $('#show_success').html("Payment Failed! Please try again!")
+            }
+        }
+        $(document).ready(function () {
+            $('#myForm').validate({
+                rules: {
+                    'CustomerName': {
+                        required: true
+                    },
+                    'Phone': {
+                        required: true
+                    },
+                    'Address': {
+                        required: true
+                    },
+                    'Email': {
+                        required: true,
+                        email: true
+                    }
+                },
+                messages: {
+                    'CustomerName': 'Không được để trống!!!',
+                    'Phone': 'Không được để trống!!!',
+                    'Address': 'Không được để trống!!!',
+                    'Email': 'Email không đúng định dạng!!!'
+                }
+            });
+        });
+    </script>
+}

@@ -1,0 +1,108 @@
+﻿
+@{
+    ViewBag.Title = "Liên hệ";
+}
+
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/contact_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/contact_responsive.css">
+<div class="container contact_container">
+    <div class="row">
+        <div class="col">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li><a href="/Home">Trang chủ</a></li>
+                    <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Liên hệ</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Map Container -->
+
+    <div class="row">
+        <div class="col">
+            <div id="google_map">
+                <div class="map_container">
+                    <div id="map">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.4179792434124!2d105.81301857529952!3d20.975875880660226!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135acef8ad5350f%3A0x89435a3528118ff5!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBUaMSDbmcgTG9uZw!5e0!3m2!1svi!2s!4v1741536568184!5m2!1svi!2s" style="border:0; height: 100%; width: 100%;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Us -->
+
+    <div class="row">
+
+        <div class="col-lg-6 contact_col">
+            <div class="contact_contents">
+                <h1>Liên hệ với chúng tôi</h1>
+                <p>Có nhiều cách để liên hệ với chúng tôi. Bạn có thể gửi cho chúng tôi một đường dây, gọi cho chúng tôi hoặc gửi email, chọn những gì phù hợp với bạn nhất.</p>
+                <div>
+                    <p>0388454656</p>
+                    <p>Trinhthanhphongzz@gmail.com</p>
+                </div>
+                <div>
+                    <p>VietinBank: 100784253784</p>
+                </div>
+                <div>
+                    <p>Thời gian làm việc: 8.00-18.00 Thứ 2 - Thứ 6</p>
+                    <p>Thứ 7/Chủ nhật: Hotline không hỗ trợ</p>
+                </div>
+            </div>
+
+            <!-- Follow Us -->
+
+            <div class="follow_us_contents">
+                <h1>Mạng xã hội</h1>
+                <ul class="social d-flex flex-row">
+                    <li><a href="https://www.facebook.com/XunaDugno" style="background-color: #3a61c9"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                    <li><a href="https://x.com/Poppies_ahihi?t=baYaIyRO4ujaOlTtqT2qvQ&s=09" style="background-color: #41a1f6"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                    @*<li><a href="#" style="background-color: #fb4343"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>*@
+                    <li><a href="https://www.instagram.com/26_0ct_2oo3/" style="background-color: #8f6247"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="col-lg-6 get_in_touch_col">
+            <div class="get_in_touch_contents">
+                <h1>Hãy liên hệ với chúng tôi!</h1>
+                <p>Điền vào biểu mẫu bên dưới để nhận được sự trợ giúp miễn phí và bảo mật.</p>
+                <form action="/Contact/SendMail" method="post">
+                    <div>
+                        <input id="input_name" class="form_input input_name input_ph" type="text" name="name" placeholder="Tên">
+                        <input id="input_email" class="form_input input_email input_ph" type="email" name="email" placeholder="Email">
+                        @*<input id="input_website" class="form_input input_website input_ph" type="url" name="name" placeholder="Trang web" required="required" data-error="Nhập trang web.">*@
+                        <textarea id="input_message" class="input_ph input_message" name="message" placeholder="Bạn đang gặp vấn đề gi?" rows="3"></textarea>
+                    </div>
+                    <div>
+                        <button id="review_submit" type="submit" class="red_button message_submit_btn trans_300" value="Submit">Gửi tin nhắn</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Content/assets/js/contact_custom.js"></script>
+    <script>
+        $(document).ready(function () {
+            var successMsg = '@TempData["ContactSuccess"]';
+            var errorMsg = '@TempData["ContactError"]';
+            if (successMsg) {
+                alert(successMsg);
+            }
+            if (errorMsg) {
+                alert(errorMsg);
+            }
+        });
+    </script>
+}
