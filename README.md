@@ -1,2 +1,2 @@
 # Fashion-Shop
-A project graduation thesis about Web and chatbot AI (not yet completed)
+To run the chatbot product on the web, please run the code "python -m uvicorn demoAPI:app --reload"
